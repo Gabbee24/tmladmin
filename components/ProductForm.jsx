@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const ProductForm = ({
+    _id,
     name:existingName,
     description:existingDescription,
     price:existingPrice,
@@ -35,13 +36,24 @@ const ProductForm = ({
         const data = { name, price, description };
 
         try {
-            await fetch("/api/products", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
+            if(_id){
+                await fetch("/api/products", {
+                    method: "PUT",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({...data,_id}),
+                })
+            } else {
+
+                await fetch("/api/products", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+            }
             // mutate();
             e.target.reset();
             setLoading(false);

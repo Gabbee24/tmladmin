@@ -30,3 +30,19 @@ export const POST = async (request) => {
         return new NextResponse('Database Error', { status: 500 });
     }
 };
+
+export const PUT = async(request) => {
+    const {name, price, description, _id} = await request.json();
+    // const updatedProduct = new Product({_id},{name, description, price})
+    // const updatedProduct = await Product.findByIdAndUpdate({_id},{name,description,price});
+    try{
+        await mongooseConnect();
+        await Product.findByIdAndUpdate({_id},{name,description,price});
+
+        // await updatedProduct.save();
+
+        return new NextResponse("product has been created", { status: 201 });
+    } catch (err){
+        return new NextResponse('Database Error', { status: 500 });
+    }
+}
