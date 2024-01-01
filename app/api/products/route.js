@@ -19,11 +19,13 @@ export const GET = async (request) => {
 
 export const POST = async (request) => {
     const body = await request.json();
-    const newProduct = new Product(body);
+    // const newProduct = new Product(body);
     try {
         await mongooseConnect();
 
-        await newProduct.save();
+        // await newProduct.save();
+
+        await Product.create(body);
 
         return new NextResponse("product has been created", { status: 201 });
     } catch (err) {
