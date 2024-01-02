@@ -1,6 +1,8 @@
 'use client'
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { GlobalContext } from "@/context/GlobalContext";
 
 const ProductForm = ({
     _id,
@@ -69,6 +71,8 @@ const ProductForm = ({
             console.log(err);
         }
     }
+
+    const {del, setDel, showDel, cancelDel} = useContext(GlobalContext);
 
     return (
         <div>

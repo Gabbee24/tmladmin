@@ -8,7 +8,8 @@ export const GET = async (request) => {
     try {
         await mongooseConnect();
 
-        const products = await Product.find(name && { name });
+        // const products = await Product.find(name && { name });
+        const products = await Product.find();
 
         return new NextResponse(JSON.stringify(products), { status: 200 });
     } catch (err) {

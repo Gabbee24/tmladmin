@@ -8,6 +8,7 @@ import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
+import Modal from './Modal';
 
 const Nav = () => {
     const router = useRouter();
@@ -26,6 +27,7 @@ const Nav = () => {
                 <Link href='/' className={pathname.startsWith('/settings') ? activeNav : ''  } ><span className="flex gap-4" > <span> <CiSettings fontSize='1.5em' color='purple' /> </span> Settings  </span> </Link>
             </nav>
                 <button onClick={signOut} className='py-4  rounded-lg' ><span className="flex gap-4" > <span> <CiLogout fontSize='1.5em' color='purple' /> </span> Log Out  </span> </button>
+                {/* <Modal/> */}
         </aside>
     )
 }
