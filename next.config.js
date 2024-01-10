@@ -4,7 +4,11 @@ const nextConfig = {
         domains:[
             "1h3.googleusercontent.com",
         ]
-    }
+    },
+    // reactStrictMode: true,
+    // experimental:{
+    //     forceSwcTransforms: true,
+    // },
 }
 
 module.exports = nextConfig

@@ -18,7 +18,7 @@ const Ss = ({ children }) => {
     return (
         <div className='bg-gray-600 min-h-screen flex  '>
             <Nav />
-            <div className='bg-white overflow-y-auto flex-grow rounded-lg m-5 p-5' >
+            <div className='bg-white h-screen overflow-y-auto flex-grow rounded-lg m-5 p-5' >
                 {children}
             </div>
         </div>

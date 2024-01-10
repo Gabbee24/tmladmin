@@ -52,7 +52,7 @@ const page = ({ params }) => {
 
                 <div className="border-b-[1px] border-black w-full px-0">
                     <div>
-                        <p className=" font-bold text-center text-[16px] md:text-lg  py-3 pt-3 md:pt-0" > ARE YOU SURE YOU WANT TO DELETE {pro?.name}  </p>
+                        <p className=" font-bold text-center text-[16px] md:text-lg  py-3 pt-3 md:pt-0" > ARE YOU SURE YOU WANT TO DELETE <span className="text-red-500" >" {pro?.name} "</span>  </p>
                     </div>
 
                 </div>

@@ -23,6 +23,7 @@ const Nav = () => {
             <nav className='flex flex-col gap-7' >
                 <Link href='/' className={pathname === '/' ? activeNav : ''  } ><span className="flex gap-4" > <span> <LuLayoutDashboard fontSize='1.5em' color='purple' /> </span> Dashboard  </span> </Link>
                 <Link href='/products' className={pathname.startsWith('/products') ? activeNav : ''  } ><span className="flex gap-4" > <span> <MdOutlineProductionQuantityLimits fontSize='1.5em' color='purple' /> </span> Products  </span> </Link>
+                <Link href='/category' className={pathname.startsWith('/category') ? activeNav : ''  } ><span className="flex gap-4" > <span> <MdOutlineProductionQuantityLimits fontSize='1.5em' color='purple' /> </span> Products  </span> </Link>
                 <Link href='/' className={pathname.startsWith('/orders') ? activeNav : ''  } ><span className="flex gap-4" > <span> <RiListOrdered fontSize='1.5em' color='purple' /> </span> Orders  </span> </Link>
                 <Link href='/' className={pathname.startsWith('/settings') ? activeNav : ''  } ><span className="flex gap-4" > <span> <CiSettings fontSize='1.5em' color='purple' /> </span> Settings  </span> </Link>
             </nav>

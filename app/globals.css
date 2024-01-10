@@ -24,6 +24,7 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+    @apply h-screen overflow-hidden
 }
 
 .loading-spinner-big {
@@ -66,4 +67,8 @@ table.basic thead tr td {
 
 table.basic tr td {
   @apply mt-1 
+}
+
+img{
+  max-height: 100%;
 }

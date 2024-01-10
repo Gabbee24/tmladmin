@@ -35,12 +35,12 @@ export const POST = async (request) => {
 };
 
 export const PUT = async(request) => {
-    const {name, price, description, _id} = await request.json();
+    const {name, price, description,images, _id} = await request.json();
     // const updatedProduct = new Product({_id},{name, description, price})
     // const updatedProduct = await Product.findByIdAndUpdate({_id},{name,description,price});
     try{
         await mongooseConnect();
-        await Product.findByIdAndUpdate({_id},{name,description,price});
+        await Product.findByIdAndUpdate({_id},{name,description,price,images});
 
         // await updatedProduct.save();
 
