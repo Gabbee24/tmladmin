@@ -217,7 +217,7 @@ const ProductForm = ({
                     <input
                         id="price"
                         type='number'
-                        placeholder='Product Name'
+                        placeholder='Product Price'
                         name="price"
                         required
                         value={newProduct.price}
