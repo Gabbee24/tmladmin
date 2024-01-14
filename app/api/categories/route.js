@@ -29,8 +29,24 @@ export const POST = async (request) => {
         await newCategory.save();
         console.log('passed new save Category section')
         
-        return new NextResponse("Post has been created", { status: 201 });
+        return new NextResponse("Category has been created", { status: 201 });
     } catch (err) {
         return new NextResponse('Database Error', { status: 500 });
     }
 };
+
+export const PUT = async(request) => {
+    const {categoryName, parentCategory, _id} = await request.json();
+    // const updatedProduct = new Product({_id},{name, description, price})
+    // const updatedProduct = await Product.findByIdAndUpdate({_id},{name,description,price});
+    try{
+        await mongooseConnect();
+        await Category.findByIdAndUpdate({_id},{categoryName, parentCategory});
+
+        // await updatedProduct.save();
+
+        return new NextResponse("Category has been created", { status: 201 });
+    } catch (err){
+        return new NextResponse('Database Error', { status: 500 });
+    }
+}
