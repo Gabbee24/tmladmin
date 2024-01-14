@@ -2,21 +2,39 @@
 import { useState } from "react"
 import Spinner from "@/components/Spinner";
 import axios from "axios";
+import useSWR from "swr";
 
 const page = () => {
+    // state tohold the category name
     const [categoryName, setCategoryName] = useState('');
-    const [isLoading,setIsLoading] = useState(false)
 
-    function handleNewCatgory(e){
+    //state for parent category
+    const [parentCategory, setParentCategory] = useState('');
+
+    // state tohold the loading state when the sve button is clicked
+    const [isLoadin, setIsLoadin] = useState(false)
+
+    // SWR function tofetch data
+    const fetcher = (...args) => fetch(...args).then(res => res.json())
+    const { data, mutate, error, isLoading } = useSWR(`/api/categories`, fetcher)
+console.log(data)
+    // function for onchange ofinput for category
+    function handleNewCatgory(e) {
         setCategoryName(e.target.value);
     }
 
+    // function for onchange ofinput for parent category
+    function handleParentCatgory(e) {
+        setParentCategory(e.target.value);
+    }
+
+    // function to save categories
     async function saveCategory(e) {
         console.log('first section')
         console.log(categoryName)
 
         e.preventDefault();
-        setIsLoading(true);
+        setIsLoadin(true);
         try {
             console.log('enter try block before await fetch section')
             await fetch("/api/categories", {
@@ -24,11 +42,13 @@ const page = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({categoryName}),
+                body: JSON.stringify({ categoryName, parentCategory }),
             });
             console.log('passed the await section')
             setCategoryName('');
-            setIsLoading(false);
+            setParentCategory('');
+            setIsLoadin(false);
+            mutate();
         } catch (err) {
             console.log(err);
         }
@@ -38,16 +58,17 @@ const page = () => {
     // async function saveCategory(e){
     //     e.preventDefault();
     //     setIsLoading(true);
-    //     await axios.post('/api/categories',{categoryName});
+    //     await axios.cate('/api/categories',{categoryName});
     //     setCategoryName('');
     //     setIsLoading(false);
     // }
+
 
     return (
         <div>
             <h1 className="my-5 font-extrabold text-4xl text-blue-600" >Categories</h1>
             <label> New Category Name </label>
-            <form onSubmit={saveCategory} className='flex gap-1' >
+            <form onSubmit={saveCategory} className='flex gap-1 my-5' >
                 <input
                     type="text"
                     placeholder='Category Name'
@@ -57,8 +78,47 @@ const page = () => {
                     autoComplete="off"
                     required
                 />
-                <button type="submit" className="bg-blue-600 p-3 rounded-lg text-white" >{isLoading ? <Spinner/> : 'Save'}</button>
+                <span className="flex flex-col" >
+                    <label htmlFor="parentCategory">Select Parent Category</label>
+                    <select
+                        name="parentCategory"
+                        value={parentCategory}
+                        onChange={handleParentCatgory}
+                        id="parentcategory" >
+                        <option value="">No Parent category</option>
+                        {data?.map(cate => (
+                            <option value={cate._id} key={cate._id} >{cate.categoryName}</option>
+                        ))}
+                    </select>
+                </span>
+                <button type="submit" className="bg-blue-600 p-3 rounded-lg text-white" >{isLoadin ? <Spinner /> : 'Save'}</button>
             </form>
+
+            <div>
+                <table className="w-full table-auto" >
+                    <thead>
+                        <tr className="font-bold" >
+                            <td>Category Name</td>
+                            <td>Parent Category</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    {isLoading &&
+                        // <div className="flex justify-center items-center h-screen " >
+                        <Spinner />
+                        // </div>
+                    }
+                    <tbody>
+                        {data?.map(cate => (
+                            <tr key={cate._id} >
+                                <td>{cate.categoryName}</td>
+                                <td>{cate?.parentCategory?.categoryName}</td>
+                                <td className='delete text-red-500 cursor-pointer ' onClick={() => handleDelete(cate._id)} >x</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }

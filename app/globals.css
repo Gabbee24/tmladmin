@@ -54,7 +54,7 @@ label{
   @apply font-bold text-lg
 }
 
-input,textarea{
+input,textarea, select{
   @apply border-2 border-gray-200 p-2 rounded-lg w-72 focus:outline-none
 }
 table.basic{

@@ -2,6 +2,21 @@ import { NextResponse } from "next/server";
 import { mongooseConnect } from "@/utils/mongoose";
 import { Category } from "@/models/Category";
 
+export const GET = async (request) => {
+    // const url = new URL(request.url)
+    // const name = url.searchParams.get("name");
+    try {
+        await mongooseConnect();
+
+        // const Categories = await Category.find(name && { name });
+        const Categories = await Category.find().populate("parentCategory");
+
+        return new NextResponse(JSON.stringify(Categories), { status: 200 });
+    } catch (err) {
+        return new NextResponse('Database Error', { status: 500 });
+    }
+};
+
 export const POST = async (request) => {
     console.log('first section')
     const body = await request.json();
