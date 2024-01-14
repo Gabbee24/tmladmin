@@ -3,6 +3,9 @@ import { useState } from "react"
 import Spinner from "@/components/Spinner";
 import axios from "axios";
 import useSWR from "swr";
+import Link from "next/link";
+import { CiEdit } from "react-icons/ci";
+import { RiDeleteBin2Line } from 'react-icons/ri'
 
 const page = () => {
     // state tohold the category name
@@ -17,7 +20,7 @@ const page = () => {
     // SWR function tofetch data
     const fetcher = (...args) => fetch(...args).then(res => res.json())
     const { data, mutate, error, isLoading } = useSWR(`/api/categories`, fetcher)
-console.log(data)
+    // console.log(data)
     // function for onchange ofinput for category
     function handleNewCatgory(e) {
         setCategoryName(e.target.value);
@@ -113,7 +116,10 @@ console.log(data)
                             <tr key={cate._id} >
                                 <td>{cate.categoryName}</td>
                                 <td>{cate?.parentCategory?.categoryName}</td>
-                                <td className='delete text-red-500 cursor-pointer ' onClick={() => handleDelete(cate._id)} >x</td>
+                                <td className="gap-5 flex" >
+                                    <Link className="flex text-green-500 " href={'/categories/edit/' + cate._id} >Edit <CiEdit fontSize='1.5em' /> </Link>
+                                    <Link className="flex text-red-500" href={'/categories/delete/' + cate._id} >Delete <RiDeleteBin2Line fontSize='1.5em' /> </Link>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
