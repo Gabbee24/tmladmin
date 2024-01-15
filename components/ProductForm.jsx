@@ -8,6 +8,7 @@ import { PiUploadSimple } from "react-icons/pi";
 import { useEffect } from "react";
 import Spinner from "./Spinner";
 import { ReactSortable } from "react-sortablejs";
+import useSWR from "swr";
 
 const ProductForm = ({
     _id,
@@ -15,6 +16,7 @@ const ProductForm = ({
     description: existingDescription,
     price: existingPrice,
     images: existingImages,
+    category: existingCategory,
     title
 }) => {
     const [newProduct, setNewProduct] = useState({
@@ -23,6 +25,8 @@ const ProductForm = ({
         description: existingDescription || '',
     });
 
+    const [category, setCategory] = useState( existingCategory || '');
+
     const [images, setImages] = useState(existingImages || []);
 
     const [loading, setLoading] = useState(false);
@@ -30,6 +34,10 @@ const ProductForm = ({
     const [isUploading, setIsUploading] = useState(false);
 
     const router = useRouter();
+
+     // SWR function tofetch data
+     const fetcher = (...args) => fetch(...args).then(res => res.json())
+     const { data, mutate, error, isLoading } = useSWR(`/api/categories`, fetcher) 
 
     function handleNewProduct(e) {
         const { name, value } = e.target;
@@ -45,7 +53,7 @@ const ProductForm = ({
         e.preventDefault();
         setLoading(true);
         const { name, price, description } = newProduct;
-        const data = { name, price, description, images };
+        const data = { name, price, description, images, category };
 
         try {
             if (_id) {
@@ -171,6 +179,20 @@ const ProductForm = ({
                         onChange={handleNewProduct}
                     />
                 </span>
+
+                <span className="flex flex-col" >
+                        <label htmlFor="Category"> Category Name</label>
+                        <select
+                            name="category"
+                            value={category}
+                            onChange={e => setCategory(e.target.value)}
+                            id="Category" >
+                            <option value="">No category</option>
+                            {data?.map(cate => (
+                                <option value={cate._id} key={cate._id} >{cate.categoryName}</option>
+                            ))}
+                        </select>
+                    </span>
 
                 <div className='flex flex-col' >
                     <p>Images</p>

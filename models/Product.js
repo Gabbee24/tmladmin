@@ -17,6 +17,10 @@ const ProductSchema = new Schema({
         required: true,
     },
     images:[{type:String}],
+    category:{
+        type: mongoose.Types.ObjectId,
+        ref: 'Category',
+    }
     // images:{
     //     type: [String],
     // },
