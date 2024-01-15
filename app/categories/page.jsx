@@ -5,9 +5,10 @@ import axios from "axios";
 import useSWR from "swr";
 import Link from "next/link";
 import { CiEdit } from "react-icons/ci";
-import { RiDeleteBin2Line } from 'react-icons/ri'
+import { RiDeleteBin2Line } from 'react-icons/ri';
+import { withSwal } from "react-sweetalert2";
 
-const page = () => {
+const CategoriesPage = ({ swal }) => {
     //state to hold the category with selected id
     const [cat, setCat] = useState('');
     const [editedCategory, setEditedCategory] = useState(null);
@@ -108,37 +109,21 @@ const page = () => {
         setParentCategory(category.parentCategory?._id);
     }
 
-    const CatgoryForm = ({ cat }) => {
-        return (
-            <div>
-                <label> {editedCategory ? `Edit Category ${editedCategory.categoryName} ` : 'Create New Category'} </label>
-                <form onSubmit={saveCategory} className='flex gap-1 my-5' >
-                    <input
-                        type="text"
-                        placeholder='Category Name'
-                        name="categoryName"
-                        onChange={handleNewCatgory}
-                        value={categoryName}
-                        autoComplete="off"
-                        required
-                    />
-                    <span className="flex flex-col" >
-                        <label htmlFor="parentCategory">Select Parent Category</label>
-                        <select
-                            name="parentCategory"
-                            value={parentCategory}
-                            onChange={handleParentCatgory}
-                            id="parentcategory" >
-                            <option value="">No Parent category</option>
-                            {data?.map(cate => (
-                                <option value={cate._id} key={cate._id} >{cate.categoryName}</option>
-                            ))}
-                        </select>
-                    </span>
-                    <button type="submit" className="bg-blue-600 p-3 rounded-lg text-white" >{isLoadin ? <Spinner /> : 'Save'}</button>
-                </form>
-            </div>
-        )
+    function deleteCategory(category) {
+        swal.fire({
+            title: 'Are you sure?',
+            text: `Do you want to delte ${category.categoryName}?`,
+            showCancelButton: true,
+            cancelButtonText: 'Cancel',
+            confirmButtonText: 'Yes, Delete!',
+            confirmButtonColor: 'red',
+            reverseButtons: true,
+        }).then(result => {
+            if(result.isConfirmed){
+                axios.delete(`/api/categories/${category._id}`)
+            }
+        });
+        mutate();
     }
 
     return (
@@ -193,7 +178,8 @@ const page = () => {
                                 <td>{cate?.parentCategory?.categoryName}</td>
                                 <td className="gap-5 flex" >
                                     <button className="flex text-green-500 " onClick={() => editCategory(cate)} >Edit <CiEdit fontSize='1.5em' /> </button>
-                                    <Link className="flex text-red-500" href={'/categories/delete/' + cate._id} >Delete <RiDeleteBin2Line fontSize='1.5em' /> </Link>
+                                    {/* <Link className="flex text-red-500" href={'/categories/delete/' + cate._id} >Delete <RiDeleteBin2Line fontSize='1.5em' /> </Link> */}
+                                    <button className="flex text-red-500" onClick={() => deleteCategory(cate)} >Delete <RiDeleteBin2Line fontSize='1.5em' /> </button>
                                 </td>
                             </tr>
                         ))}
@@ -204,4 +190,6 @@ const page = () => {
     )
 }
 
-export default page
+export default withSwal(({ swal }, ref) => (
+    <CategoriesPage swal={swal} />
+))
