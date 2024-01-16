@@ -9,6 +9,7 @@ const CategorySchema = new Schema({
     parentCategory:{
         type:mongoose.Types.ObjectId, ref:"Category"
     },
+    properties:[{type:Object}],
 },{timestamps: true});
 
 export const Category = models?.Category || model("Category",CategorySchema);

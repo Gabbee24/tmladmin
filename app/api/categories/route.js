@@ -36,12 +36,12 @@ export const POST = async (request) => {
 };
 
 export const PUT = async(request) => {
-    const {categoryName, parentCategory, _id} = await request.json();
+    const {categoryName, parentCategory,properties, _id} = await request.json();
     // const updatedProduct = new Product({_id},{name, description, price})
     // const updatedProduct = await Product.findByIdAndUpdate({_id},{name,description,price});
     try{
         await mongooseConnect();
-        await Category.findByIdAndUpdate({_id},{categoryName, parentCategory});
+        await Category.findByIdAndUpdate({_id},{categoryName, parentCategory,properties});
 
         // await updatedProduct.save();
 
