@@ -20,7 +20,8 @@ const ProductSchema = new Schema({
     category:{
         type: mongoose.Types.ObjectId,
         ref: 'Category',
-    }
+    },
+    productProperties:{type:Object},
     // images:{
     //     type: [String],
     // },
