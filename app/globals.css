@@ -24,10 +24,10 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-    @apply h-screen overflow-hidden
+    @apply h-screen overflow-hidden;
 }
 
-.loading-spinner-big {
+.loading-spinner-big{
   margin: 10px auto;
   border: 3px solid #fff; /* Light grey */
   border-top: 3px solid gray; /* Blue */
@@ -47,26 +47,26 @@ body {
 }
 
 h3{
-  @apply font-bold text-3xl mb-5
+  @apply font-bold text-3xl mb-5;
 }
 
 label{
-  @apply font-bold text-lg
+  @apply font-bold text-lg;
 }
 
 input,textarea, select{
-  @apply border-2 border-gray-200 p-2 rounded-lg w-72 focus:outline-none
+  @apply border-2 border-gray-200 p-2 rounded-lg w-72 focus:outline-none;
 }
 table.basic{
-  @apply w-full mt-12 table-auto
+  @apply w-full mt-12 table-auto;
 }
 
 table.basic thead tr td {
-  @apply bg-gray-200 font-bold text-2xl p-2
+  @apply bg-gray-200 font-bold text-2xl p-2;
 }
 
 table.basic tr td {
-  @apply mt-1 
+  @apply mt-1 ;
 }
 
 img{

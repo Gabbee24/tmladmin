@@ -27,7 +27,7 @@ const ProductTable = ({data}) => {
                 </tr>
             </thead>
             <tbody>
-                {data.map(product => (
+                {data?.map(product => (
                     <tr key={product._id} >
                         <td>{product.name}</td>
                         <td>{product.price}</td>

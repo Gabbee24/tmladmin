@@ -1,15 +1,23 @@
 import { NextResponse } from "next/server";
 import { Product } from "@/models/Product";
 import { mongooseConnect } from "@/utils/mongoose";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../auth/[...nextauth]/route";
 
 export const GET =async (request,{params}) => {
+    const session = await getServerSession(authOptions);
     const {id} = params;
     try{
-        await mongooseConnect();
+        if(session){
 
-        const product = await Product.findById(id);
-
-        return new NextResponse(JSON.stringify(product), {status: 200 });
+            await mongooseConnect();
+            
+            const product = await Product.findById(id);
+            
+            return new NextResponse(JSON.stringify(product), {status: 200 });
+        }else {
+            return new NextResponse('Authentication Error', { status: 500 });
+        }
     } catch (err){
         return new NextResponse('Database Error', {status:500});
     }
@@ -17,13 +25,19 @@ export const GET =async (request,{params}) => {
 
 
 export const DELETE = async (request,{params}) => {
+    const session = await getServerSession(authOptions);
     const {id} = params;
     try{
-        await mongooseConnect();
+        if(session){
 
-        await Product.findByIdAndDelete(id);
-
-        return new NextResponse("Product has been deleted", {status: 200 });
+            await mongooseConnect();
+            
+            await Product.findByIdAndDelete(id);
+            
+            return new NextResponse("Product has been deleted", {status: 200 });
+        }else{
+            return new NextResponse('Authentication Error', { status: 500 });
+        }
     } catch (err){
         return new NextResponse('Database Error', {status:500});
  };

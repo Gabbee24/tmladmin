@@ -1,26 +1,19 @@
-'use client';
-import useSWR from "swr";
 import ProductTable from "@/components/ProductTable";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-// async function getData() {
-//   const res = await fetch('http://localhost:3000/api/products', {
-//     cache: 'no-store',
-//   });
-//   if (!res.ok) {
-//     return notFound();
-//   }
-//   return res.json();
-// }
-
+async function getData() {
+  const res = await fetch('http://localhost:3000/api/products', {
+    cache: 'no-store',
+  });
+  if (!res.ok) {
+    return notFound();
+  }
+  return res.json();
+}
 
 const page = async () => {
-  // SWR function tofetch data
-  const fetcher = (...args) => fetch(...args).then(res => res.json())
-  const { data, mutate, error, isLoading } = useSWR(`/api/products`, fetcher)
-  // console.log(data)
-  // const data = await getData();
+  const data = await getData();
   return (
     <div className='' >
       <h1 className="my-5 font-extrabold text-4xl text-blue-600" >Products</h1>
