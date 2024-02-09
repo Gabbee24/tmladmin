@@ -25,7 +25,7 @@ const Nav = () => {
                 <Link href='/' className={pathname === '/' ? activeNav : ''  } ><span className="flex gap-4" > <span> <LuLayoutDashboard fontSize='1.5em' color='purple' /> </span> Dashboard  </span> </Link>
                 <Link href='/products' className={pathname.startsWith('/products') ? activeNav : ''  } ><span className="flex gap-4" > <span> <MdOutlineProductionQuantityLimits fontSize='1.5em' color='purple' /> </span> Products  </span> </Link>
                 <Link href='/categories' className={pathname.startsWith('/categories') ? activeNav : ''  } ><span className="flex gap-4" > <span> <BiCategory fontSize='1.5em' color='purple' /> </span> Categories  </span> </Link>
-                <Link href='/' className={pathname.startsWith('/orders') ? activeNav : ''  } ><span className="flex gap-4" > <span> <RiListOrdered fontSize='1.5em' color='purple' /> </span> Orders  </span> </Link>
+                <Link href='/orders' className={pathname.startsWith('/orders') ? activeNav : ''  } ><span className="flex gap-4" > <span> <RiListOrdered fontSize='1.5em' color='purple' /> </span> Orders  </span> </Link>
                 <Link href='/' className={pathname.startsWith('/settings') ? activeNav : ''  } ><span className="flex gap-4" > <span> <CiSettings fontSize='1.5em' color='purple' /> </span> Settings  </span> </Link>
             </nav>
                 <button onClick={signOut} className='py-4  rounded-lg' ><span className="flex gap-4" > <span> <CiLogout fontSize='1.5em' color='purple' /> </span> Log Out  </span> </button>

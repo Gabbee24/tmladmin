@@ -158,7 +158,7 @@ const ProductForm = ({
             }
 
             const res = await axios.post("/api/upload", data);
-            console.log(res.data);
+            // console.log(res.data);
 
             setImages(prevImages => {
                 return [...prevImages, ...res.data.links] //changes links to link

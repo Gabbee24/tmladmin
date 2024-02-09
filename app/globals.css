@@ -58,11 +58,17 @@ input,textarea, select{
   @apply border-2 border-gray-200 p-2 rounded-lg w-72 focus:outline-none;
 }
 table.basic{
-  @apply w-full mt-12 table-auto;
+  @apply w-full mt-12 table-auto ;
 }
 
-table.basic thead tr td {
-  @apply bg-gray-200 font-bold text-2xl p-2;
+table.basic thead{
+  @apply shadow-md;
+}
+
+table.basic thead tr td,
+table.basic thead tr th
+{
+  @apply bg-gray-100 font-bold text-2xl p-2;
 }
 
 table.basic tr td {
