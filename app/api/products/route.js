@@ -50,14 +50,14 @@ export const POST = async (request) => {
 
 export const PUT = async (request) => {
     const session = await getServerSession(authOptions);
-    const { name, price, description, images, category, productProperties, _id } = await request.json();
+    const { name, price, description, quantity, images, priceDrop, category, productProperties, _id } = await request.json();
     // const updatedProduct = new Product({_id},{name, description, price})
     // const updatedProduct = await Product.findByIdAndUpdate({_id},{name,description,price});
     try {
         if (session) {
 
             await mongooseConnect();
-            await Product.findByIdAndUpdate({ _id }, { name, description, price, images, category, productProperties });
+            await Product.findByIdAndUpdate({ _id }, { name, description, price, quantity, images, priceDrop, category, productProperties });
 
             // await updatedProduct.save();
 

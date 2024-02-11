@@ -14,6 +14,8 @@ const ProductForm = ({
     _id,
     name: existingName,
     description: existingDescription,
+    quantity: exisitingQuantity,
+    priceDrop: exisitingPriceDrop,
     price: existingPrice,
     images: existingImages,
     category: existingCategory,
@@ -24,6 +26,8 @@ const ProductForm = ({
         name: existingName || '',
         price: existingPrice || '',
         description: existingDescription || '',
+        quantity: exisitingQuantity || '',
+        priceDrop: exisitingPriceDrop || '',
     });
 
     const [category, setCategory] = useState(existingCategory || '');
@@ -61,8 +65,8 @@ const ProductForm = ({
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        const { name, price, description } = newProduct;
-        const data = { name, price, description, images, category, productProperties };
+        const { name, price, description, priceDrop, quantity } = newProduct;
+        const data = { name, price, description, quantity, priceDrop, images, category, productProperties };
 
         try {
             if (_id) {
@@ -91,7 +95,9 @@ const ProductForm = ({
                 price: '',
                 description: '',
             });
-            router.push('/products');
+            setTimeout(() => {
+                router.push('/products');
+            }, 2000);
             // setNewPost('')
             // res.status === 201 && router.push('/dashboard/login?success=Account has been created');
         } catch (err) {
@@ -311,6 +317,32 @@ const ProductForm = ({
                         value={newProduct.description}
                         onChange={handleNewProduct}
                         autoComplete="off"
+                    />
+                </span>
+                <span className='flex flex-col' >
+                    <label htmlFor="quantity">Quantity </label>
+                    <input
+                        id="quantity"
+                        type='number'
+                        placeholder='Product quantity'
+                        name="quantity"
+                        required
+                        value={newProduct.quantity}
+                        autoComplete="off"
+                        onChange={handleNewProduct}
+                    />
+                </span>
+                <span className='flex flex-col' >
+                    <label htmlFor="priceDrop">Price Drop </label>
+                    <input
+                        id="priceDrop"
+                        type='number'
+                        placeholder='Product Price Drop'
+                        name="priceDrop"
+                        required
+                        value={newProduct.priceDrop}
+                        autoComplete="off"
+                        onChange={handleNewProduct}
                     />
                 </span>
                 <button type='submit' className='flex bg-purple-300 w-fit p-3 rounded-lg' >Submit</button>

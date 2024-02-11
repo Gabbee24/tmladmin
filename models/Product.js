@@ -16,6 +16,13 @@ const ProductSchema = new Schema({
         unique: true,
         required: true,
     },
+    quantity:{
+        type: Number,
+        required: true,
+    },
+    priceDrop:{
+        type: Number,
+    },
     images:[{type:String}],
     category:{
         type: mongoose.Types.ObjectId,
