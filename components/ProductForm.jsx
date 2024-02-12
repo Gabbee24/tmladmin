@@ -9,6 +9,8 @@ import { useEffect } from "react";
 import Spinner from "./Spinner";
 import { ReactSortable } from "react-sortablejs";
 import useSWR from "swr";
+import PageLoad from "./PageLoad";
+import { toast } from "react-toastify";
 
 const ProductForm = ({
     _id,
@@ -339,13 +341,12 @@ const ProductForm = ({
                         type='number'
                         placeholder='Product Price Drop'
                         name="priceDrop"
-                        required
                         value={newProduct.priceDrop}
                         autoComplete="off"
                         onChange={handleNewProduct}
                     />
                 </span>
-                <button type='submit' className='flex bg-purple-300 w-fit p-3 rounded-lg' >Submit</button>
+                <button type='submit' className='flex bg-purple-300 w-fit p-3 rounded-lg' >{loading ? <Spinner/> : "Submit"}</button>
             </form>
         </div>
     )

@@ -8,16 +8,16 @@ export const GET =async (request,{params}) => {
     const session = await getServerSession(authOptions);
     const {id} = params;
     try{
-        if(session){
+        // if(session){
 
             await mongooseConnect();
             
             const product = await Product.findById(id);
             
             return new NextResponse(JSON.stringify(product), {status: 200 });
-        }else {
-            return new NextResponse('Authentication Error', { status: 500 });
-        }
+        // }else {
+        //     return new NextResponse('Authentication Error', { status: 500 });
+        // }
     } catch (err){
         return new NextResponse('Database Error', {status:500});
     }

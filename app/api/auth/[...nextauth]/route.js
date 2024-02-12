@@ -1,10 +1,7 @@
 // import { User } from "@/models/User";
 import NextAuth, { getServerSession } from "next-auth";
 import GoogleProvider from 'next-auth/providers/google';
-import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from 'bcryptjs';
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import { mongooseConnect } from "@/utils/mongoose";
 import clientPromise from "@/utils/mongodb";
 
 const adminEmails = ["oluwaseunprosper615@gmail.com"];
